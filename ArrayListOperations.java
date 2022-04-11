@@ -1,138 +1,127 @@
+package org.home;
+
 import java.util.*;
 
-public class ArrayListOperations {
-
-	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
-		ArrayList<Integer> al = new ArrayList<Integer>();
-		Scanner sc = new Scanner(System.in);
-
-		do {// operations to be perform
-			System.out.println("\n\nPlease Select Choice\n");
-			System.out.println("1: Add Elements to the ArrayList");
-			System.out.println("2: Show Elemnts of ArrayList ");
-			System.out.println("3: Finding Maximum Element from the ArrayList");
-			System.out.println("4:Finding Minimum Elemnt of the ArrayList");
-			System.out.println("5: Sort Elements in Ascending Orrder");
-			System.out.println("6:Sort Elements in Descending Order");
-			System.out.println("7: Search Element is present in the List or Not");
-			System.out.println("8: Exit the Operation");
-
-			int choice = sc.nextInt();
-			switch (choice) {
-			case 1: {
-				System.out.println("Enter the Total Values you want to add");
-				int count = sc.nextInt();
-				System.out.println("Enter the Values in List");
-				addValue(al, count); // entering value method call
-			}
-				break;
-
-			case 2: {
-				System.out.println("Show the Values in ArrayList");
-				showValue(al); // show value method call
-			}
-				break;
-			case 3: {
-				System.out.println("Show the MAximum Value in ArrayList");
-				maxValue(al);
-			}
-				break;
-			case 4: {
-				System.out.println("Show the Minimum Values in ArrayList");
-				minValue(al);
-			}
-				break;
-			case 5: {
-				sortAscending(al);
-				System.out.println("After Sorting List in DESCENDING ORDER");
-				{
-					for (Integer i : al) {
-						System.out.println(i);
-					}
-				}
-			}
-				break;
-			case 6: {
-				sortDescending(al);
-				System.out.println("After Sorting List in DESCENDING ORDER");
-				{
-					for (Integer i : al) {
-						System.out.println(i);
-					}
-				}
-			}
-				break;
-			case 7: {
-				System.out.println("Enter the Value to be searched");
-				int value = sc.nextInt();
-				searchElement(al, value);
-			}
-				break;
-			case 8: {
-				System.out.println("Exiting Apllication");
-				System.exit(0);
-			}
-			default: {
-				System.out.println("Please Enter Valid Choice");
-			}
-			}
-		} while (true);
-	}
-
-	// adding value to the ArrayList
-	public static void addValue(ArrayList<Integer> al, int count) {
-		Scanner sc = new Scanner(System.in);
-		for (int i = 0; i < count; i++) {
-			int value = sc.nextInt();
-			al.add(value);
-		}
-	}
-
-	// Display the Values form List
-	public static void showValue(ArrayList<Integer> al) {
-		for (Integer i : al) {
-			System.out.println(i);
-		}
-	}
-
-	// Find Max Value from the List
-	public static void maxValue(ArrayList<Integer> al) throws NoSuchElementException, ClassCastException {
-		System.out.println(Collections.max(al));
-	}
-
-	// Find Minimum Value from ArrayList
-	public static void minValue(ArrayList<Integer> al) throws NoSuchElementException, ClassCastException {
-		System.out.println(Collections.min(al));
-	}
-
-	// Sort the List Ascending
-	public static void sortAscending(ArrayList<Integer> al)
-			throws UnsupportedOperationException, ClassCastException, IllegalArgumentException {
-		Collections.sort(al);
-	}
-
-	// Sort List Descending Order
-	public static void sortDescending(ArrayList<Integer> al)
-			throws UnsupportedOperationException, ClassCastException, IllegalArgumentException {
-		Collections.sort(al, new myComparator());
-	}
-
-	// Search the Element
-	public static void searchElement(ArrayList<Integer> al, int value) throws ClassCastException {
-		sortAscending(al);
-		System.out.println(Collections.binarySearch(al, value));
-	}
-}
-
-class myComparator implements Comparator<Object> {
+class DescSort implements Comparator<Object> {
 
 	@Override
 	public int compare(Object o1, Object o2) {
-		// TODO Auto-generated method stub
-		Integer i1 = (Integer) o1;
-		Integer i2 = (Integer) o2;
-		return i2.compareTo(i1);
-	}
 
+		Integer I1 = (Integer) o1;
+		Integer I2 = (Integer) o2;
+		/*
+		 * if (I1 < I2) { return 1; } else if (I1 > I2) { return -1; }
+		 */
+		return I2.compareTo(I1);
+
+	}
 }
+
+	public class ArrayListOperations {
+
+		public static void main(String[] args) throws Exception {
+			// create scanner reference to take input from user
+			Scanner sc = new Scanner(System.in);
+			// create ArrayList
+			ArrayList<Integer> al = new ArrayList<Integer>();
+
+			do {
+				// List of Operations
+				System.out.println("Select Operation");
+				System.out.println("--------------------------------------------------------");
+				System.out.println("1: Add Elements to the ArrayList.");
+				System.out.println("2: View All Elements of ArrayList.");
+				System.out.println("3: Search Element from ArrayList.");
+				System.out.println("4: Remove Element from ArrarList.");
+				System.out.println("5: Sort ArrayList in Ascending order.");
+				System.out.println("6: Sort ArrayList Descending Order.");
+				System.out.println("7: exit the Application.");
+
+				int choice = sc.nextInt();
+
+				switch (choice) {
+				// add elements in arraylist
+				case 1: {
+					System.out.println("Select how many elements do you want to add inside ArrayList:");
+					int count = sc.nextInt();
+					System.out.println("Enter Elements in array :");
+					for (int i = 0; i < count; i++) {
+						int val = sc.nextInt();
+						al.add(val);
+					}
+				}
+					break;
+				// View the Elements of arrayList
+				case 2: {
+					display(al);
+				}
+					break;
+				// Search Element from array
+				case 3: {
+					search(al);
+				}
+					break;
+				// remove element
+				case 4: {
+					boolean r = removeElement(al);
+					if (r) {
+						System.out.println("Removed Successfully");
+					} else {
+						System.out.println("Element Not Removed Please Check Input Element");
+					}
+				}
+					break;
+				// Sort ArrayList Ascending Order
+				case 5: {
+					Collections.sort(al);
+					display(al);
+				}
+					break;
+				// sort array in descending order
+				case 6: {
+					DescSort d = new DescSort();
+					Collections.sort(al, d);
+					display(al);
+				}
+					break;
+				case 7: {
+					System.out.println("----EXITING APPLICATION----");
+					System.exit(0);
+				}
+					break;
+				}
+
+			} while (true);
+
+		}
+
+		// To show Elements
+		public static void display(ArrayList<?> al) throws NullPointerException, ClassCastException {
+			for (Object o : al) {
+				System.out.println(o);
+			}
+		}
+
+		// to Search Elements
+		public static void search(ArrayList<Integer> al) throws Exception {
+			Scanner sc = new Scanner(System.in);
+			// take searching element from user
+			System.out.println("Enter the value to be search:");
+			Integer value = sc.nextInt();
+			if (al.contains(value)) {
+				System.out.println("Element found");
+			} else {
+				System.out.println("Element not available");
+			}
+			// Remove Element
+		}
+
+		public static boolean removeElement(ArrayList<Integer> al) throws Exception {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Enter the Element to be remove:");
+			Integer i = sc.nextInt();
+			boolean r = al.remove(i);
+			return r;
+		}
+
+	}
