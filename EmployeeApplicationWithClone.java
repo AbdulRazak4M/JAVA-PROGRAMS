@@ -42,7 +42,7 @@ class Employee implements Cloneable
 	}
 }
 
-public class EmployeeApplication {
+public class EmployeeApplicationWithClone {
 
 	public static void main(String[] args) throws CloneNotSupportedException {
 		// create ArrayList
